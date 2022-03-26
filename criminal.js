@@ -1,4 +1,7 @@
-class Criminal extends LivingCreature {
+let LivingCreature = require('./livingCreature.js');
+let random = require('./random');
+
+module.exports = class Criminal extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index);
     }

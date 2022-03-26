@@ -1,4 +1,7 @@
-class Hunter extends LivingCreature {
+let LivingCreature = require('./livingCreature.js');
+let random = require('./random');
+
+module.exports = class Hunter extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index);
         this.energy = 40;
