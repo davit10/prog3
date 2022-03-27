@@ -2,15 +2,12 @@ let socket = io();
 let side = 20;
 
 
-function setup(){
+
+socket.on('send matrix', function(matrix){
+    debugger;
+    console.log(matrix);
     createCanvas(matrix[0].length * side, matrix.length * side);
     background("gray");
-    
-}
-socket.on('send matrix', matrix);
-
-function drawMatrix(matrix) {
-    debugger;
     for (let i = 0; i < matrix.length; i++) {
         for (let j = 0; j < matrix[i].length; j++) {
             let x = j * side;
@@ -41,5 +38,13 @@ function drawMatrix(matrix) {
             }
         }
     }
-}
-socket.on('send matrix', drawMatrix);
+    socket.emit('send matrix', matrix);
+});
+
+
+
+//function drawMatrix(matrix) {
+
+//}
+
+

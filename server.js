@@ -9,15 +9,21 @@ app.get('/', function (req, res) {
     res.redirect('index.html');
 });
 
-server.listen(3000);
+//server.listen(3000);
+server.listen(3002);
 
 
-let matrix = []; 
+function random(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+
 function matrixGenerator(m, n) {
+    let matrix = [];
     for (let i = 0; i < m; i++) {
         matrix[i] = [];
         for (let j = 0; j < n; j++) {
-            let rnd = Math.random(100);
+            let rnd = random(0,100);
             if (rnd <= 30) {
                 matrix[i][j] = 1;
             }
@@ -41,10 +47,11 @@ function matrixGenerator(m, n) {
     return matrix;
 
 }
-    io.sockets.emit('send matrix', matrix);
+
+    let matrix = matrixGenerator(20,20);
+   // io.sockets.emit('send matrix', matrix);
 
 
-//matrix = matrixGenerator(20,20);
 
 
 let grassArr = [];
@@ -115,6 +122,5 @@ function game() {
 
 setInterval(game, 1000)
 io.on('connection', function(){
-    
-    
-    createObject()});
+    createObject();
+});
