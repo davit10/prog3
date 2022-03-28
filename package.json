@@ -1,24 +1,26 @@
 {
-  "name": "newprog",
+  "name": "prog3",
   "version": "1.0.0",
+  "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server",
     "start": "node server.js"
-  },
-  "author": "Davit",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.3",
-    "socket.io": "^4.4.1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/davit10/prog3.git"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/davit10/prog3/issues"
   },
   "homepage": "https://github.com/davit10/prog3#readme",
-  "description": ""
+  "dependencies": {
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15",
+    "socket.io": "^4.4.1"
+  }
 }

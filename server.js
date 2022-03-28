@@ -2,6 +2,7 @@ let express = require('express');
 let app = express();
 let server = require('http').createServer(app);
 let io = require('socket.io')(server);
+// let random = require('./random');
 
 app.use(express.static("."));
 
@@ -9,21 +10,22 @@ app.get('/', function (req, res) {
     res.redirect('index.html');
 });
 
-//server.listen(3000);
-server.listen(3002);
+server.listen(3000);
 
 
-function random(min, max) {
+function randoming(min, max) {
     return Math.random() * (max - min) + min;
   }
 
 
+ matrix = [];
 function matrixGenerator(m, n) {
-    let matrix = [];
     for (let i = 0; i < m; i++) {
         matrix[i] = [];
         for (let j = 0; j < n; j++) {
-            let rnd = random(0,100);
+            let rnd = Math.floor(randoming(0,100));
+            console.log(rnd);
+            
             if (rnd <= 30) {
                 matrix[i][j] = 1;
             }
@@ -44,23 +46,22 @@ function matrixGenerator(m, n) {
             }
         }
     }
-    return matrix;
-
+  
 }
 
-    let matrix = matrixGenerator(20,20);
-   // io.sockets.emit('send matrix', matrix);
+//  matrix = matrixGenerator(20,20);
+   io.sockets.emit('send matrix', matrix);
 
 
 
 
-let grassArr = [];
-let grassEaterArr = [];
-let predatorArr = [];
-let hunterArr = [];
-let criminalArr = [];
+ grassArr = [];
+ grassEaterArr = [];
+ predatorArr = [];
+ hunterArr = [];
+ criminalArr = [];
 
-
+ 
 let Grass = require('./grass');
 let GrassEater = require('./GrassEater');
 let Predator = require('./Predator');
@@ -69,11 +70,15 @@ let Criminal = require('./Criminal')
 
 
 function createObject() {
+    // console.log(matrix);
+    
     for (let y = 0; y < matrix.length; ++y) {
         for (let x = 0; x < matrix[y].length; ++x) {
             if (matrix[y][x] == 1) {
                 let gr = new Grass(x, y, 1);
+
                 grassArr.push(gr);
+                  
             }
             else if (matrix[y][x] == 2) {
                 let gre = new GrassEater(x, y, 2);
@@ -99,8 +104,10 @@ function createObject() {
 
 
 
-io.sockets.on('send matrix', game);
+
+// io.sockets.on('send matrix', game);
 function game() {
+    
     for (let i in grassArr) {
         grassArr[i].mul();
     }
@@ -117,10 +124,11 @@ function game() {
         criminalArr[i].eat();
     }
 
-    io.sockets.emit("send matrix", matrix);
 }
+// io.sockets.emit("send matrix", matrix);
 
-setInterval(game, 1000)
-io.on('connection', function(){
+setInterval(game, 100)
+io.on('connection', function(soket){
+    matrixGenerator(20,20);
     createObject();
 });
