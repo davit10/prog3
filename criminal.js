@@ -1,5 +1,5 @@
 let LivingCreature = require('./livingCreature.js');
-let random = require('./random');
+
 
 module.exports = class Criminal extends LivingCreature {
     
@@ -17,8 +17,8 @@ module.exports = class Criminal extends LivingCreature {
     }
     move() {
         this.getNewCoordinates();
-        let emptyCells = random(super.chooseCell(0));
-        let grCells = random(super.chooseCell(1));
+        let emptyCells = super.randommm(super.chooseCell(0));
+        let grCells = super.randommm(super.chooseCell(1));
         if (emptyCells) {
             let newX = emptyCells[0];
             let newY = emptyCells[1];
@@ -47,8 +47,8 @@ module.exports = class Criminal extends LivingCreature {
 
     eat() {
         this.getNewCoordinates();
-        let rnd = Math.round(random(2, 4));
-        let newCell = random(super.chooseCell(rnd));
+        let rnd = Math.round(super.randommm(2, 4));
+        let newCell = super.randommm(super.chooseCell(rnd));
         if (newCell) {
             let x = newCell[0];
             let y = newCell[1];

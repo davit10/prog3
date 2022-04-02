@@ -1,6 +1,6 @@
 let LivingCreature = require('./livingCreature.js');
 //let script = require('./scipt.js');
-let random = require('./random');
+
 
 
 module.exports = class Predator extends LivingCreature {
@@ -22,7 +22,7 @@ module.exports = class Predator extends LivingCreature {
     }
     mul() {
         this.getNewCoordinates();
-        let emptyCells = random(super.chooseCell(0));
+        let emptyCells = super.randommm(super.chooseCell(0));
 
         if (emptyCells) {
 
@@ -39,7 +39,7 @@ module.exports = class Predator extends LivingCreature {
     }
     move() {
         this.getNewCoordinates();
-        let emptyCells = random(super.chooseCell(0));
+        let emptyCells = super.randommm(super.chooseCell(0));
 
 
 
@@ -77,7 +77,7 @@ module.exports = class Predator extends LivingCreature {
 
     eat() {
         this.getNewCoordinates();
-        let newCell = random(super.chooseCell(2));
+        let newCell = super.randommm(super.chooseCell(2));
         if (newCell) {
             this.energy++;
             if(this.energy >=16){

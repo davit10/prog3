@@ -1,12 +1,16 @@
 let socket = io();
 let side = 20;
 
+//console.log(matrix.length);
+
 function setup (){
     // console.log(matrix);
-
-    createCanvas(50 * side, 50 * side);
+    createCanvas(20 * side, 20 * side);
     background("gray");
+    
+
 }
+
 
 // socket.on('send matrix', 
 function nkarel(matrix){

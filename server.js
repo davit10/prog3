@@ -10,21 +10,23 @@ app.get('/', function (req, res) {
     res.redirect('index.html');
 });
 
-server.listen(3000);
+//server.listen(3000);
+server.listen(8008)
 
 
-function randoming(min, max) {
+function random(min, max) {
     return Math.random() * (max - min) + min;
   }
+matrix =  matrixGenerator(20,20);
 
 
- matrix = [];
+ 
 function matrixGenerator(m, n) {
+    let matrix = [];
     for (let i = 0; i < m; i++) {
         matrix[i] = [];
         for (let j = 0; j < n; j++) {
-            let rnd = Math.floor(randoming(0,100));
-            console.log(rnd);
+            let rnd = random(0,100);
             
             if (rnd <= 30) {
                 matrix[i][j] = 1;
@@ -46,11 +48,11 @@ function matrixGenerator(m, n) {
             }
         }
     }
+    return matrix;
   
 }
+io.sockets.emit("send matrix", matrix)
 
-//  matrix = matrixGenerator(20,20);
-   io.sockets.emit('send matrix', matrix);
 
 
 
@@ -62,21 +64,20 @@ function matrixGenerator(m, n) {
  criminalArr = [];
 
  
-let Grass = require('./grass');
-let GrassEater = require('./GrassEater');
-let Predator = require('./Predator');
-let Hunter = require('./Hunter');
-let Criminal = require('./Criminal')
+ Grass = require('./grass');
+ GrassEater = require('./GrassEater');
+ Predator = require('./Predator');
+ Hunter = require('./Hunter');
+ Criminal = require('./Criminal')
 
+//matrix = [];
 
 function createObject() {
     // console.log(matrix);
-    
     for (let y = 0; y < matrix.length; ++y) {
         for (let x = 0; x < matrix[y].length; ++x) {
             if (matrix[y][x] == 1) {
                 let gr = new Grass(x, y, 1);
-
                 grassArr.push(gr);
                   
             }
@@ -110,6 +111,7 @@ function game() {
     
     for (let i in grassArr) {
         grassArr[i].mul();
+        
     }
     for (let i in grassEaterArr) {
         grassEaterArr[i].eat();
@@ -123,12 +125,11 @@ function game() {
     for (let i in criminalArr) {
         criminalArr[i].eat();
     }
-
+io.sockets.emit("send matrix",matrix)
 }
 // io.sockets.emit("send matrix", matrix);
-
-setInterval(game, 100)
-io.on('connection', function(soket){
-    matrixGenerator(20,20);
+setInterval(game, 1000)
+io.on('connection', function(){    
     createObject();
+
 });

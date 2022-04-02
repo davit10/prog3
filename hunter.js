@@ -1,5 +1,5 @@
 let LivingCreature = require('./livingCreature.js');
-let random = require('./random');
+
 
 module.exports = class Hunter extends LivingCreature {
     constructor(x, y, index) {
@@ -20,17 +20,14 @@ module.exports = class Hunter extends LivingCreature {
     }
     mul() {
         this.getNewCoordinates();
-        let hnCells = random(super.chooseCell(3));
+        let hnCells = super.randommm(super.chooseCell(1));
 
         if (hnCells) {
             let newX = hnCells[0];
             let newY = hnCells[1];
             let hn = new Hunter(newX, newY, this.index);
             hunterArr.push(hn);
-            let hn1 = new Hunter(newX + 1, newY + 1, this.index);
-            hunterArr.push(hn1);
-            let hn2 = new Hunter(newX - 1, newY - 1, this.index);
-            hunterArr.push(hn2);
+
 
             matrix[newY][newX] = this.index;
 
@@ -40,8 +37,8 @@ module.exports = class Hunter extends LivingCreature {
     }
     move() {
         this.getNewCoordinates();
-        let emptyCells = random(super.chooseCell(0));
-        let grCells = random(super.chooseCell(1));
+        let emptyCells = super.randommm(super.chooseCell(0));
+        let grCells = super.randommm(super.chooseCell(1));
         if (emptyCells) {
             let newX = emptyCells[0];
             let newY = emptyCells[1];
@@ -91,7 +88,7 @@ module.exports = class Hunter extends LivingCreature {
 
     eat() {
         this.getNewCoordinates();
-        let newCell = random(super.chooseCell(3));
+        let newCell = super.randommm(super.chooseCell(3));
         if (newCell) {
             this.energy++;
             if(this.energy >= 50){

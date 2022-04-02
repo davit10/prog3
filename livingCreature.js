@@ -17,4 +17,7 @@ module.exports = class LivingCreature {
         }
         return found;
     }    
+    randommm(arr){
+        return arr[Math.floor(Math.random() * arr.length)]
+    }
 }
